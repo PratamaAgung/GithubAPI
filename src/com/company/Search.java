@@ -14,7 +14,7 @@ import org.json.*;
  * Created by Pratama Agung on 6/8/2017.
  */
 public class Search {
-    public static User[] Search(String target){
+    public User[] userSearch(String target){
         User[] userList;
         try {
 
@@ -52,5 +52,12 @@ public class Search {
             userList = null;
         }
         return userList;
+    }
+
+    public String urlUserBuilder(String user, boolean isFollower, int followMax, int followMin, boolean isRepo, int repoMax, int repoMin){
+        String result = "https://api.github.com/search/";
+        if isFollower {
+
+        }
     }
 }
