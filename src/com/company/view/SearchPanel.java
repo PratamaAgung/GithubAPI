@@ -1,11 +1,12 @@
-package com.company;
+package com.company.view;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
- * Created by Pratama Agung on 6/16/2017.
+ * Created by Pratama Agung on 6/16/2017,
+ * berfungsi menampilkan view pada saat memasukkan input search.
  */
 public class SearchPanel extends JPanel{
     private JLabel headerLabel;
@@ -18,7 +19,11 @@ public class SearchPanel extends JPanel{
     private JSlider followMin;
     private JCheckBox repository;
     private JSlider repoMin;
+    private JLabel statusPanel;
 
+    /**
+     * Constructor untuk kelas SearchPanel.
+     */
     public SearchPanel(){
         this.setLayout(new GridLayout(3,1));
         prepareGUI();
@@ -27,6 +32,9 @@ public class SearchPanel extends JPanel{
         setFilterField();
     }
 
+    /**
+     * Method untuk menambahkan komponen dasar GUI pada kelas ini.
+     */
     private void prepareGUI(){
         headerLabel = new JLabel("", JLabel.CENTER);
 
@@ -34,11 +42,17 @@ public class SearchPanel extends JPanel{
         controlPanel.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
 
+        statusPanel = new JLabel("", JLabel.CENTER);
+
         this.add(headerLabel);
         this.add(controlPanel);
+        this.add(statusPanel);
         this.setBackground(Color.WHITE);
     }
 
+    /**
+     * Method untuk mengatur title label.
+     */
     private void setTitleLabel(){
         headerLabel.setText("GitHUB Search");
         headerLabel.setFont(new Font(headerLabel.getFont().getName(), Font.PLAIN, 20));
@@ -46,6 +60,9 @@ public class SearchPanel extends JPanel{
         headerLabel.setIcon(icon);
     }
 
+    /**
+     * Method untuk mengatur field pencarian user.
+     */
     private void setUserField(){
         JLabel userLabel = new JLabel("Search:");
         gbc.fill = GridBagConstraints.BOTH;
@@ -69,6 +86,10 @@ public class SearchPanel extends JPanel{
         gbc.gridwidth = 3;
         controlPanel.add(searchIn, gbc);
     }
+
+    /**
+     * Methos untuk mengatur tampilan filter.
+     */
     private void setFilterField(){
         follower = new JCheckBox();
         gbc.gridy = 2;
@@ -93,6 +114,13 @@ public class SearchPanel extends JPanel{
         gbc.gridwidth = 4;
         controlPanel.add(followMin, gbc);
 
+        followMin.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                statusPanel.setText("Set minimum follower to " + followMin.getValue());
+            }
+        });
+
         repository = new JCheckBox();
         gbc.gridy = 2;
         gbc.gridx = 5;
@@ -116,6 +144,12 @@ public class SearchPanel extends JPanel{
         gbc.gridwidth = 4;
         controlPanel.add(repoMin, gbc);
 
+        repoMin.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                statusPanel.setText("Set minimum repository to " + repoMin.getValue());
+            }
+        });
         searchButton = new JButton("Search");
         gbc.gridy = 4;
         gbc.gridx = 0;
@@ -123,30 +157,58 @@ public class SearchPanel extends JPanel{
         controlPanel.add(searchButton, gbc);
     }
 
+    /**
+     * Method untuk mendapatkan button yang digunkaan untuk memulai searching.
+     * @return searchButton.
+     */
     public JButton getSearchButton(){
         return searchButton;
     }
 
+    /**
+     * Method untuk mendapatkan nama user yang akan dicari.
+     * @return string nama user.
+     */
     public String getUser(){
         return userSearch.getText();
     }
 
+    /**
+     * Method untuk mendapatkan type pencarian user yang dikehendaki.
+     * @return 0 : username, 1 : email, 2 : fullname.
+     */
     public int getSearchIn(){
         return searchIn.getSelectedIndex();
     }
 
+    /**
+     * Method untuk mendapatkan apakah filter follower diaktifkan.
+     * @return boolean apakah filter follower diaktifkan.
+     */
     public boolean isFilterFollower(){
         return follower.isSelected();
     }
 
+    /**
+     * Method untuk mendapatkan jumlah minimum follower yang dikehendaki.
+     * @return minimum follower.
+     */
     public int getMinFollower(){
         return followMin.getValue();
     }
 
+    /**
+     * Method untuk mendapatkan apakah filter repository diaktifkan.
+     * @return boolean apakah filter repository aktif.
+     */
     public boolean isFilterRepo(){
         return repository.isSelected();
     }
 
+    /**
+     * Methos untuk mendapatkan jumlah minimum repository yang dikehendaki
+     * @return jumlah minimum repository yang dikehendaki.
+     */
     public int getMinRepo(){
         return repoMin.getValue();
     }

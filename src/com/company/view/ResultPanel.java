@@ -1,15 +1,21 @@
-package com.company;
+package com.company.view;
+
+import com.company.model.User;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by Pratama Agung on 6/18/2017.
+ * Created by Pratama Agung on 6/18/2017,
+ * berfungsi untuk menampilkan view hasil pencarian.
  */
 public class ResultPanel extends JPanel {
     private JLabel [] result;
     private JButton [] viewButton;
 
+    /**
+     * Constructor untuk kelas ResultPanel.
+     */
     public ResultPanel(){
         this.setLayout(new GridLayout(3,1));
         JLabel title = new JLabel("Result", JLabel.CENTER);
@@ -29,6 +35,10 @@ public class ResultPanel extends JPanel {
         this.setBackground(Color.WHITE);
     }
 
+    /**
+     * Method untuk menampilkan hasil pencarian.
+     * @param res list user hasil pencarian.
+     */
     public void setResult(User[] res) {
         for(int i = 0; i < res.length && i < 5; i++){
             result[i].setText(res[i].getName());

@@ -3,18 +3,24 @@ package com.company;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.MalformedURLException;
 
-import jdk.nashorn.internal.parser.JSONParser;
+import com.company.model.Repo;
+import com.company.model.User;
 import org.json.*;
 
 /**
- * Created by Pratama Agung on 6/8/2017.
+ * Created by Pratama Agung on 6/8/2017,
+ * berfungsi untuk melakukan search dan berkomunikasi langsung dengan API.
  */
 public class Search {
+    /**
+     * Method untuk melakukan search user.
+     * @param target url untuk melakukan search.
+     * @return list user hasil search.
+     */
     public User[] userSearch(String target){
         User[] userList;
         try {
@@ -60,6 +66,11 @@ public class Search {
         return userList;
     }
 
+    /**
+     * Method untuk menlakukan search repository dari suatu user.
+     * @param target url yang dituju.
+     * @return list repository dari user.
+     */
     public Repo[] searchUserRepo(String target) {
         Repo [] repos;
         try {
@@ -112,6 +123,16 @@ public class Search {
         return repos;
     }
 
+    /**
+     * Method untuk membangun url untuk melakukan pencarian user.
+     * @param user nama user.
+     * @param searchIn pilihan tipe pencarian (username, email, atau fullname).
+     * @param isFollower boolean apakah filter follower diaktifkan.
+     * @param followMin minimum follower yang dikehendaki.
+     * @param isRepo boolean apakah filter repository diaktifkan.
+     * @param repoMin minimum repository yang dikehendaki.
+     * @return url target pencarian dengan opsi dari parameter input.
+     */
     public String urlUserBuilder(String user, int searchIn, boolean isFollower, int followMin, boolean isRepo, int repoMin){
         String result = "https://api.github.com/search/users?";
         result += "q=" + user;
@@ -132,6 +153,11 @@ public class Search {
         return result;
     }
 
+    /**
+     * Method untuk mencari repository dari suatu user.
+     * @param username username yang akan dicari repo nya.
+     * @return list repository dari user tersebut.
+     */
     public String urlRepoBuilder(String username) {
         String result = "https://api.github.com/users/";
         result += username + "/repos";
