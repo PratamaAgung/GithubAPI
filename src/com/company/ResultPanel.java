@@ -26,9 +26,28 @@ public class ResultPanel extends JPanel {
             contentPanel.add(viewButton[i]);
         }
         this.add(contentPanel);
+        this.setBackground(Color.WHITE);
     }
 
-    public void setResultLabel(int index, String text){
-        result[index].setText(text);
+    public void setResult(User[] res) {
+        for(int i = 0; i < res.length && i < 5; i++){
+            result[i].setText(res[i].getName());
+            result[i].setVisible(true);
+            viewButton[i].setVisible(true);
+        }
+        if (res.length < 5) {
+            for (int i = res.length; i < 5; i++) {
+                result[i].setVisible(false);
+                viewButton[i].setVisible(false);
+            }
+        }
+    }
+
+    public String getUserName(int index) {
+        return result[index].getText();
+    }
+
+    public JButton getDetailButton(int index) {
+        return viewButton[index];
     }
 }

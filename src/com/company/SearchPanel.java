@@ -12,6 +12,12 @@ public class SearchPanel extends JPanel{
     private JPanel controlPanel;
     private GridBagConstraints gbc;
     private JButton searchButton;
+    private JTextField userSearch;
+    private JComboBox searchIn;
+    private JCheckBox follower;
+    private JSlider followMin;
+    private JCheckBox repository;
+    private JSlider repoMin;
 
     public SearchPanel(){
         this.setLayout(new GridLayout(3,1));
@@ -51,20 +57,20 @@ public class SearchPanel extends JPanel{
         gbc.insets = new Insets(5,5,5,5);
         controlPanel.add(userLabel, gbc);
 
-        JTextField userSearch = new JTextField();
+        userSearch = new JTextField();
         gbc.gridy = 1;
         gbc.gridwidth = 8;
         gbc.weightx = gbc.weighty = 0.0;
         controlPanel.add(userSearch, gbc);
 
         String [] option = {"Username", "Email", "Name"};
-        JComboBox mode = new JComboBox(option);
+        searchIn= new JComboBox(option);
         gbc.gridx = 8;
         gbc.gridwidth = 3;
-        controlPanel.add(mode, gbc);
+        controlPanel.add(searchIn, gbc);
     }
     private void setFilterField(){
-        JCheckBox follower = new JCheckBox();
+        follower = new JCheckBox();
         gbc.gridy = 2;
         gbc.gridx = 0;
         gbc.gridwidth = 1;
@@ -77,30 +83,17 @@ public class SearchPanel extends JPanel{
         gbc.gridwidth = 2;
         controlPanel.add(followMinLabel, gbc);
 
-        JLabel followMaxLabel = new JLabel("Maximum Follower");
-        gbc.gridx = 3;
-        gbc.gridwidth = 2;
-        controlPanel.add(followMaxLabel, gbc);
-
-        JSlider followMin = new JSlider(0,100);
+        followMin = new JSlider(0,100);
         followMin.setMinorTickSpacing(5);
         followMin.setMajorTickSpacing(20);
         followMin.setPaintTicks(true);
         followMin.setPaintLabels(true);
         gbc.gridy = 3;
         gbc.gridx = 1;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 4;
         controlPanel.add(followMin, gbc);
 
-        JSlider followMax = new JSlider(0,100);
-        followMax.setMinorTickSpacing(5);
-        followMax.setMajorTickSpacing(20);
-        followMax.setPaintTicks(true);
-        followMax.setPaintLabels(true);
-        gbc.gridx = 3;
-        controlPanel.add(followMax, gbc);
-
-        JCheckBox repository = new JCheckBox();
+        repository = new JCheckBox();
         gbc.gridy = 2;
         gbc.gridx = 5;
         gbc.gridwidth = 1;
@@ -113,28 +106,15 @@ public class SearchPanel extends JPanel{
         gbc.gridwidth = 2;
         controlPanel.add(repoMinLabel, gbc);
 
-        JLabel repoMaxLabel = new JLabel("Maximum Repository");
-        gbc.gridx = 8;
-        gbc.gridwidth = 2;
-        controlPanel.add(repoMaxLabel, gbc);
-
-        JSlider repoMin = new JSlider(0,100);
+        repoMin = new JSlider(0,100);
         repoMin.setMinorTickSpacing(5);
         repoMin.setMajorTickSpacing(20);
         repoMin.setPaintTicks(true);
         repoMin.setPaintLabels(true);
         gbc.gridy = 3;
         gbc.gridx = 6;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 4;
         controlPanel.add(repoMin, gbc);
-
-        JSlider repoMax = new JSlider(0,100);
-        repoMax.setMinorTickSpacing(5);
-        repoMax.setMajorTickSpacing(20);
-        repoMax.setPaintTicks(true);
-        repoMax.setPaintLabels(true);
-        gbc.gridx = 8;
-        controlPanel.add(repoMax, gbc);
 
         searchButton = new JButton("Search");
         gbc.gridy = 4;
@@ -145,5 +125,29 @@ public class SearchPanel extends JPanel{
 
     public JButton getSearchButton(){
         return searchButton;
+    }
+
+    public String getUser(){
+        return userSearch.getText();
+    }
+
+    public int getSearchIn(){
+        return searchIn.getSelectedIndex();
+    }
+
+    public boolean isFilterFollower(){
+        return follower.isSelected();
+    }
+
+    public int getMinFollower(){
+        return followMin.getValue();
+    }
+
+    public boolean isFilterRepo(){
+        return repository.isSelected();
+    }
+
+    public int getMinRepo(){
+        return repoMin.getValue();
     }
 }

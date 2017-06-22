@@ -12,6 +12,10 @@ public class Controller {
     private JPanel mainFrame;
     private Search searcher;
 
+    public Controller() {
+        searcher = new Search();
+    }
+
     public static void main(String[] args) {
         Controller controller = new Controller();
         controller.mainView = new JFrame("GitHUB User Search");
@@ -31,21 +35,44 @@ public class Controller {
         ResultPanel result = new ResultPanel();
         controller.mainFrame.add("resultPage", result);
 
+        DetailPanel detail = new DetailPanel();
+        controller.mainFrame.add("detailPage", detail);
+
         controller.mainView.add(controller.mainFrame);
         controller.mainView.setVisible(true);
 
         searchPage.getSearchButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String user = searchPage.getUser();
+                int searchIn = searchPage.getSearchIn();
+                boolean isFollower = searchPage.isFilterFollower();
+                int followMin = searchPage.getMinFollower();
+                boolean isRepo = searchPage.isFilterRepo();
+                int repoMin = searchPage.getMinRepo();
+                String url = controller.searcher.urlUserBuilder(user, searchIn, isFollower, followMin, isRepo, repoMin);
+                User[] userList;
+                userList = controller.searcher.userSearch(url);
+                result.setResult(userList);
                 CardLayout layout = (CardLayout) controller.mainFrame.getLayout();
                 layout.show(controller.mainFrame, "resultPage");
-                User[] userList;
-                userList = Search.Search("https://api.github.com/search/users?q=tom+repos:%3E42+followers:%3E1000");
-                for (int i = 0; i < 5 && i < userList.length; i++){
-                    result.setResultLabel(i, userList[i].getName());
-
-                }
             }
         });
+
+        for (int i = 0; i < 5; i++) {
+            int finalI = i;
+            result.getDetailButton(finalI).addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String username = result.getUserName(finalI);
+                    String url = controller.searcher.urlRepoBuilder(username);
+                    Repo [] repos;
+                    repos = controller.searcher.searchUserRepo(url);
+                    detail.setResult(username, repos);
+                    CardLayout layout = (CardLayout) controller.mainFrame.getLayout();
+                    layout.show(controller.mainFrame, "detailPage");
+                }
+            });
+        }
     }
 }
