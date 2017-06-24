@@ -4,6 +4,8 @@ import com.company.model.Repo;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by Pratama Agung on 6/23/2017,
@@ -12,6 +14,7 @@ import java.awt.*;
 public class DetailPanel extends JPanel {
     private JTextArea detail;
     private JLabel title;
+    private JButton backButton;
 
     /**
      * Constructor untuk kelas detailPanel.
@@ -25,6 +28,14 @@ public class DetailPanel extends JPanel {
         detail.setEditable(false);
         JScrollPane scroll = new JScrollPane(detail);
         this.add(scroll);
+
+        JPanel controlPanel = new JPanel(new GridLayout(3,1));
+        backButton = new JButton("Back");
+        controlPanel.setBackground(Color.WHITE);
+        controlPanel.setBorder(BorderFactory.createEmptyBorder(5,25,5,25));
+        controlPanel.add(backButton);
+        this.add(controlPanel);
+
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
     }
@@ -45,5 +56,9 @@ public class DetailPanel extends JPanel {
             detail.append("\n");
         }
         detail.setCaretPosition(0);
+    }
+
+    public JButton getBackButton(){
+        return backButton;
     }
 }

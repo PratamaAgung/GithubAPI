@@ -46,9 +46,23 @@ public class Controller {
 
         result = new ResultPanel();
         mainFrame.add("resultPage", result);
+        result.getBackButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardLayout layout = (CardLayout) mainFrame.getLayout();
+                layout.show(mainFrame, "searchPage");
+            }
+        });
 
         detail = new DetailPanel();
         mainFrame.add("detailPage", detail);
+        detail.getBackButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CardLayout layout = (CardLayout) mainFrame.getLayout();
+                layout.show(mainFrame, "resultPage");
+            }
+        });
 
         mainView.add(mainFrame);
         mainView.setVisible(true);
