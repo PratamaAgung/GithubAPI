@@ -3,6 +3,11 @@ Java project using GitHub API
 
 Dalam pengembangan aplikasi berbasis Java ini, digunakan beberapa elemen dasar, yakni JSON file, REST, dan GitHub API.
 
+## Dependencies
+Project ini menggunakan extrenal library, yaitu org.json dan Swing
+* org.json digunakan untuk mengelola struktur data json. Library yang digunakan adalah org,json versi 20140107.
+* Swing digunakan untuk menampilkan GUI pada aplikasi ini. Library yang digunakan adalah Swing default pada IntelliJ IDEA 2017.
+
 ## Struktur File JSON
 JSON merupakan singkatan dari JavaScript Object Notation, adalah suatu struktur penyimpanan data yang terorganisir dengan baik dan mudah diakses. Struktur data ini cukup banyak digunakan dalam pengembangan aplikasi, dan banyak tersedia library untuk akses data dari struktur file tersebut, misalnya pada bahasa pemrograman java, terdapat library org.json.
 Salah satu contoh struktur data JSON adalah seperti berikut
