@@ -4,6 +4,8 @@ import com.company.model.User;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by Pratama Agung on 6/18/2017,
@@ -13,6 +15,8 @@ public class ResultPanel extends JPanel {
     private JLabel [] result;
     private JButton [] viewButton;
     private JButton backButton;
+    private User[] userList;
+    private int page;
 
     /**
      * Constructor untuk kelas ResultPanel.
@@ -38,6 +42,18 @@ public class ResultPanel extends JPanel {
         controlPanel.setBorder(BorderFactory.createEmptyBorder(5,25,5,25));
         backButton = new JButton("Back");
         controlPanel.add(backButton);
+
+        JButton nextButton = new JButton("Next");
+        nextButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (page * 5 < userList.length){
+                    page += 1;
+                    showPage(page);
+                }
+            }
+        });
+        controlPanel.add(nextButton);
         controlPanel.setBackground(Color.WHITE);
 
         this.add(contentPanel);
@@ -50,15 +66,23 @@ public class ResultPanel extends JPanel {
      * @param res list user hasil pencarian.
      */
     public void setResult(User[] res) {
-        for(int i = 0; i < res.length && i < 5; i++){
-            result[i].setText(res[i].getName());
-            result[i].setVisible(true);
-            viewButton[i].setVisible(true);
+        userList = res;
+        page = 1;
+        showPage(1);
+    }
+
+    private void showPage(int page) {
+        int i, j;
+        int base = (page - 1) * 5;
+        for(j = 0, i = base; i < userList.length && i < base + 5; i++, j++){
+            result[j].setText(userList[i].getName());
+            result[j].setVisible(true);
+            viewButton[j].setVisible(true);
         }
-        if (res.length < 5) {
-            for (int i = res.length; i < 5; i++) {
-                result[i].setVisible(false);
-                viewButton[i].setVisible(false);
+        if (i < base + 5) {
+            for (j = i - base; j < 5; j++) {
+                result[j].setVisible(false);
+                viewButton[j].setVisible(false);
             }
         }
     }

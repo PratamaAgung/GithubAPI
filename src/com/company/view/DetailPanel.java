@@ -4,8 +4,6 @@ import com.company.model.Repo;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by Pratama Agung on 6/23/2017,
@@ -48,6 +46,7 @@ public class DetailPanel extends JPanel {
     public void setResult(String username, Repo[] repos) {
         title.setText("<html>This is the list of repository owned by " + username + "<br>Repo count: " + repos.length
             + "</html");
+        detail.setText("");
         for(int i = 0; i < repos.length; i++){
             detail.append(Integer.toString(i) + ".\n");
             detail.append("Name: " + repos[i].getName() + "\n");

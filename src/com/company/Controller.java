@@ -100,6 +100,7 @@ public class Controller {
                 public void actionPerformed(ActionEvent e) {
                     String username = controller.result.getUserName(finalI);
                     String url = controller.searcher.urlRepoBuilder(username);
+
                     Repo[] repos;
                     repos = controller.searcher.searchUserRepo(url);
                     controller.detail.setResult(username, repos);
